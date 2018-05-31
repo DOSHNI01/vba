@@ -1,0 +1,602 @@
+Sub Weightvolume10CIP()
+
+Dim i As Long
+Dim atloc As Range
+Dim atloc1 As Range
+Dim beloc As Range
+Dim beloc1 As Range
+Dim frloc As Range
+Dim frloc1 As Range
+Dim frloc2 As Range
+Dim frloc3 As Range
+Dim deloc As Range
+Dim itloc As Range
+Dim nlloc As Range
+Dim noloc As Range
+Dim ptloc As Range
+Dim esloc As Range
+Dim gbloc As Range
+Dim weightactual As Range
+Dim weightbase As Range
+Dim atcompare As Variant
+Dim atcompare1 As Variant
+Dim becompare As Variant
+Dim becompare1 As Variant
+Dim frcompare As Variant
+Dim frcompare1 As Variant
+Dim frcompare2 As Variant
+Dim frcompare3 As Variant
+Dim decompare As Variant
+Dim decompare1 As Variant
+Dim itcompare As Variant
+Dim itcompare1 As Variant
+Dim nlcompare As Variant
+Dim nlcompare1 As Variant
+Dim nocompare As Variant
+Dim nocompare1 As Variant
+Dim ptcompare As Variant
+Dim ptcompare1 As Variant
+Dim escompare As Variant
+Dim escompare1 As Variant
+Dim gbcompare As Variant
+Dim gbcompare1 As Variant
+Dim globalweight As Range
+Dim gloweibase As Range
+Dim nor As Range
+Dim ptg As Range
+Dim atl As Range
+Dim bel As Range
+Dim frl As Range
+Dim del As Range
+Dim itl As Range
+Dim nll As Range
+Dim esl As Range
+Dim gbl As Range
+Dim atl1 As Range
+Dim bel1 As Range
+Dim frl1 As Range
+Dim frl2 As Range
+Dim frl3 As Range
+Dim gw As Range
+Dim wa As Range
+Dim gwb As Range
+Dim wb As Range
+Dim ws As Worksheet
+Dim lrow As Variant
+Dim alllocals As Collection
+Dim alllocal As Object
+
+
+'--------------------------
+'Select all necessary chars
+'--------------------------
+Rows("1:1").Select
+Set weightactual = Selection.Find(What:="WEIGHT/VOLUME PER MEASURED UNIT - ACTUAL", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set weightbase = Selection.Find(What:="WEIGHT/VOLUME PER MEASURED UNIT - BASE", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set globalweight = Selection.Find(What:="GLOBAL WEIGHT/VOLUME PER MEASURED UNIT - ACTUAL", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set gloweibase = Selection.Find(What:="GLOBAL WEIGHT/VOLUME PER MEASURED UNIT - BASE", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set atloc = Selection.Find(What:="#AT LOC INH1 : INHALT NUMERISCH", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set atloc1 = Selection.Find(What:="#AT LOC GRO  : ORIGINALGROESSE 5.1N", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set beloc = Selection.Find(What:="#BE LOC DESCF: M#DESCRITPTION", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set beloc1 = Selection.Find(What:="#BE LOC BSIZ : SIZE            3.0N", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set frloc = Selection.Find(What:="#FR LOC PDS  : POIDS EN GRAMME GR", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set frloc1 = Selection.Find(What:="#FR LOC CTN  : CONTENANCE  ML", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set frloc2 = Selection.Find(What:="#FR LOC CTNU : CTN DE BASE", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set frloc3 = Selection.Find(What:="#FR LOC PDSU : PDS DE BASE", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set deloc = Selection.Find(What:="#DE LOC INH  : INHALT GEWICHT", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set itloc = Selection.Find(What:="#IT LOC FTO  : FORMATO         5.0N", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set nlloc = Selection.Find(What:="#NL LOC BINH : M#SISINHOUD     5.0N", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set noloc = Selection.Find(What:="#NO LOC 7001: KILOGRAMS", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set ptloc = Selection.Find(What:="#PT LOC UNID : UNIDADES", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set esloc = Selection.Find(What:="#ES LOC PESO : PESO            5  N", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+Rows("1:1").Select
+Set gbloc = Selection.Find(What:="#GB LOC 00008: WEIGHT/VOLUME", _
+        LookIn:=xlValues, LookAt:=xlWhole, SearchOrder:=xlByColumns, _
+        SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False)
+        
+'--------------------------------------
+'Checking all local chars are available
+'--------------------------------------
+Set alllocals = New Collection
+alllocals.Add Item:=atloc
+alllocals.Add Item:=beloc
+alllocals.Add Item:=frloc
+alllocals.Add Item:=deloc
+alllocals.Add Item:=itloc
+alllocals.Add Item:=nlloc
+alllocals.Add Item:=noloc
+alllocals.Add Item:=ptloc
+alllocals.Add Item:=esloc
+alllocals.Add Item:=gbloc
+alllocals.Add Item:=weightactual
+alllocals.Add Item:=globalweight
+alllocals.Add Item:=weightbase
+alllocals.Add Item:=gloweibase
+
+For Each alllocal In alllocals
+If alllocal Is Nothing Then
+    MsgBox "Local char is not present", vbExclamation
+    Exit Sub
+Else
+End If
+Next alllocal
+
+'---------------------------
+'Formating all local columns
+'---------------------------
+Set ws = ActiveSheet
+lrow = ws.cells.Find("*", Range("B1"), SearchDirection:=xlPrevious).Row - 1
+Set atl = atloc.Offset(1).Resize(lrow)
+Set bel = beloc.Offset(1).Resize(lrow)
+Set frl = frloc.Offset(1).Resize(lrow)
+Set del = deloc.Offset(1).Resize(lrow)
+Set itl = itloc.Offset(1).Resize(lrow)
+Set nll = nlloc.Offset(1).Resize(lrow)
+Set nor = noloc.Offset(1).Resize(lrow)
+Set esl = esloc.Offset(1).Resize(lrow)
+Set ptg = ptloc.Offset(1).Resize(lrow)
+Set gbl = gbloc.Offset(1).Resize(lrow)
+Set atl1 = atloc1.Offset(1).Resize(lrow)
+Set bel1 = beloc1.Offset(1).Resize(lrow)
+Set frl1 = frloc1.Offset(1).Resize(lrow)
+Set frl2 = frloc2.Offset(1).Resize(lrow)
+Set frl3 = frloc3.Offset(1).Resize(lrow)
+Set gw = globalweight.Offset(1).Resize(lrow)
+Set wa = weightactual.Offset(1).Resize(lrow)
+
+atl.Select
+Selection.Replace What:=" G", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:=" ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+
+atl1.Select
+Selection.Replace What:=" G", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:=" ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+        
+bel.Select
+Selection.Replace What:="GR", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:="ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+
+bel1.Select
+Selection.Replace What:=" GR", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:=" ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+        
+frl.Select
+Selection.Replace What:="G", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+frl1.Select
+Selection.Replace What:="ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+frl2.Select
+Selection.Replace What:="'", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+frl3.Select
+Selection.Replace What:="'", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+
+del.Select
+Selection.Replace What:=" G", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:=" ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+        
+itl.EntireColumn.Select
+Selection.Replace What:="'", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+
+nll.Select
+Selection.Replace What:="'", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+        
+nor.Select
+Selection.Replace What:=" KG", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+For i = 1 To nor.cells.Count
+    If Not IsEmpty(nor.cells(i).Value) Then
+        nor.cells(i).Value = nor.cells(i).Value * 1000
+    End If
+Next i
+    
+
+For i = 1 To ptg.cells.Count
+    If Not IsEmpty(ptg.cells(i).Value) Then
+        ptg.cells(i).Value = ptg.cells(i).Value * 1000
+    End If
+Next i
+    
+esl.Select
+Selection.Replace What:="'", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+        
+gbl.Select
+Selection.Replace What:=" GM", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+Selection.Replace What:=" ML", replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False
+
+'-------------------------
+'Code Global Weight Actual
+'-------------------------
+Dim Eurobadvalues As New Collection
+Dim bullcheck As Boolean
+
+Eurobadvalues.Add Item:="NOT DETERMINED"
+Eurobadvalues.Add Item:="NOT STATED"
+Eurobadvalues.Add Item:="LEGACY NULL VALUE"
+Eurobadvalues.Add Item:=""
+
+For i = 1 To atl.cells.Count
+If i = 69 Then
+Debug.Print i
+End If
+
+'if global weight is blank Or NOT DETERMINED then
+If gw.cells(i).Value = "" Or gw.cells(i).Value = "NOT DETERMINED" Then
+    'if local at is not blank then
+    If atl.cells(i).Value <> "" Then
+        'add G in the last
+        atcompare = atl.cells(i).Value & "G"
+        'if local at match with euro or euro has not determined then
+        If atcompare = wa.cells(i).Value Or wa.cells(i).Value = "NOT DETERMINED" Then
+            'global = local at
+            gw.cells(i).Value = atcompare
+        End If
+        If gw.cells(i).Value = "" Or gw.cells(i).Value = "NOT DETERMINED" Then
+            atcompare = atl.cells(i).Value & "ML"
+            If atcompare = wa.cells(i).Value Or wa.cells(i).Value = "NOT DETERMINED" Then
+                gw.cells(i).Value = atcompare
+            End If
+        End If
+    ElseIf beloc.cells(i).Value <> "" Then
+        becompare = beloc.cells(i).Value & "G"
+        If becompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = becompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            becompare = beloc.cells(i).Value & "ML"
+            If becompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = becompare
+            End If
+        End If
+    ElseIf frloc.cells(i).Value <> "" Then
+        frcompare = frloc.cells(i).Value & "G"
+        If frcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = frcompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            frcompare = frloc.cells(i).Value & "ML"
+            If frcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = frcompare
+            End If
+        End If
+    ElseIf frloc1.cells(i).Value <> "" Then
+        frcompare1 = frloc1.cells(i).Value & "ML"
+        If frcompare1 = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = frcompare1
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            frcompare1 = frloc1.cells(i).Value & "ML"
+            If frcompare1 = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = frcompare1
+            End If
+        End If
+    ElseIf deloc.cells(i).Value <> "" Then
+        decompare = deloc.cells(i).Value & "G"
+        If decompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = decompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            decompare = deloc.cells(i).Value & "ML"
+            If decompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = decompare
+            End If
+        End If
+    ElseIf itloc.cells(i).Value <> "" Then
+        itcompare = itloc.cells(i).Value & "G"
+        If itcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = itcompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            itcompare = itloc.cells(i).Value & "ML"
+            If itcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = itcompare
+            End If
+        End If
+    ElseIf nlloc.cells(i).Value <> "" Then
+        nlcompare = nlloc.cells(i).Value & "G"
+        If nlcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = nlcompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            nlcompare = nlloc.cells(i).Value & "ML"
+            If nlcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = nlcompare
+            End If
+        End If
+    ElseIf noloc.cells(i).Value <> "" Then
+        nocompare = noloc.cells(i).Value & "G"
+        If nocompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = nocompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            nocompare = noloc.cells(i).Value & "ML"
+            If nocompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = nocompare
+            End If
+        End If
+    ElseIf ptloc.cells(i).Value <> "" Then
+        ptcompare = ptloc.cells(i).Value & "G"
+        If ptcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = ptcompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            ptcompare = ptloc.cells(i).Value & "ML"
+            If ptcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = ptcompare
+            End If
+        End If
+    ElseIf esloc.cells(i).Value <> "" Then
+        escompare = esloc.cells(i).Value & "G"
+        If escompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+            globalweight.cells(i).Value = escompare
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            escompare = esloc.cells(i).Value & "ML"
+            If escompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                globalweight.cells(i).Value = escompare
+            End If
+        End If
+    ElseIf gbloc.cells(i).Value <> "" Then
+        gbcompare = gbloc.cells(i).Value & "G"
+        If gbcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                If gbloc.cells(i).Value <> "ESTIMATED WEIGHT" And gbloc.cells(i).Value <> "UNIDENTIFIED" Then
+                    globalweight.cells(i).Value = gbcompare
+                End If
+        End If
+        If globalweight.cells(i).Value = "" Or globalweight.cells(i).Value = "NOT DETERMINED" Then
+            gbcompare = gbloc.cells(i).Value & "ML"
+            If gbcompare = weightactual.cells(i).Value Or weightactual.cells(i).Value = "NOT DETERMINED" Then
+                If gbloc.cells(i).Value <> "ESTIMATED WEIGHT" And gbloc.cells(i).Value <> "UNIDENTIFIED" Then
+                    globalweight.cells(i).Value = gbcompare
+                End If
+            End If
+        End If
+    Else
+        bullcheck = False
+        For Each element In Eurobadvalues
+            If element = wa.cells(i).Value Then
+                bullcheck = True
+            End If
+        Next element
+        If bullcheck = True Then
+        Else
+            gw.cells(i).Value = wa.cells(i).Value
+        End If
+    End If
+Else
+    gw.cells(i).Interior.ColorIndex = 37
+End If
+Next i
+gw.cells.Select
+
+'-----------------------
+'Code Global Weight Base
+'-----------------------
+Set gwb = gloweibase.Offset(1).Resize(lrow)
+Set wb = weightbase.Offset(1).Resize(lrow)
+
+For i = 1 To atl1.cells.Count
+If gwb.cells(i).Value = "" Or gwb.cells(i).Value = "NOT DETERMINED" Then
+    If atl1.cells(i).Value <> "" Then
+        atcompare1 = atl1.cells(i).Value & "G"
+        If atcompare1 = wb.cells(i).Value Or wb.cells(i).Value = "NOT DETERMINED" Then
+            gwb.cells(i).Value = atcompare1
+        End If
+        If gwb.cells(i).Value = "" Or gwb.cells(i).Value = "NOT DETERMINED" Then
+            atcompare1 = atl1.cells(i).Value & "ML"
+            If atcompare1 = wb.cells(i).Value Or wb.cells(i).Value = "NOT DETERMINED" Then
+                gwb.cells(i).Value = atcompare1
+            End If
+        End If
+    ElseIf beloc1.cells(i).Value <> "" Then
+        becompare1 = beloc1.cells(i).Value & "G"
+        If becompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = becompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            becompare1 = beloc1.cells(i).Value & "ML"
+            If becompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = becompare1
+            End If
+        End If
+    ElseIf frloc2.cells(i).Value <> "" Then
+        frcompare2 = frloc2.cells(i).Value & "G"
+        If frcompare2 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = frcompare2
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            frcompare2 = frloc2.cells(i).Value & "ML"
+            If frcompare2 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = frcompare2
+            End If
+        End If
+    ElseIf frloc3.cells(i).Value <> "" Then
+        frcompare3 = frloc3.cells(i).Value & "G"
+        If frcompare3 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = frcompare3
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            frcompare3 = frloc3.cells(i).Value & "ML"
+            If frcompare3 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = frcompare3
+            End If
+        End If
+    ElseIf deloc.cells(i).Value <> "" Then
+        decompare1 = deloc.cells(i).Value & "G"
+        If decompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = decompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            decompare1 = deloc.cells(i).Value & "ML"
+            If decompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = decompare1
+            End If
+        End If
+    ElseIf itloc.cells(i).Value <> "" Then
+        itcompare1 = itloc.cells(i).Value & "G"
+        If itcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = itcompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            itcompare1 = itloc.cells(i).Value & "ML"
+            If itcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = itcompare1
+            End If
+        End If
+    ElseIf nlloc.cells(i).Value <> "" Then
+        nlcompare1 = nlloc.cells(i).Value & "G"
+        If nlcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = nlcompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            nlcompare1 = nlloc.cells(i).Value & "ML"
+            If nlcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = nlcompare1
+            End If
+        End If
+    ElseIf noloc.cells(i).Value <> "" Then
+        nocompare1 = noloc.cells(i).Value & "G"
+        If nocompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = nocompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            nocompare1 = noloc.cells(i).Value & "ML"
+            If nocompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = nocompare1
+            End If
+        End If
+    ElseIf ptloc.cells(i).Value <> "" Then
+        ptcompare1 = ptloc.cells(i).Value & "G"
+        If ptcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = ptcompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            ptcompare1 = ptloc.cells(i).Value & "ML"
+            If ptcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = ptcompare1
+            End If
+        End If
+    ElseIf esloc.cells(i).Value <> "" Then
+        escompare1 = esloc.cells(i).Value & "G"
+        If escompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+            gloweibase.cells(i).Value = escompare1
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            escompare1 = esloc.cells(i).Value & "ML"
+            If escompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                gloweibase.cells(i).Value = escompare1
+            End If
+        End If
+    ElseIf gbloc.cells(i).Value <> "" Then
+        gbcompare1 = gbloc.cells(i).Value & "G"
+        If gbcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                If gbloc.cells(i).Value <> "ESTIMATED WEIGHT" And gbloc.cells(i).Value <> "UNIDENTIFIED" Then
+                        gloweibase.cells(i).Value = gbcompare1
+                End If
+        End If
+        If gloweibase.cells(i).Value = "" Or gloweibase.cells(i).Value = "NOT DETERMINED" Then
+            gbcompare1 = gbloc.cells(i).Value & "ML"
+            If gbcompare1 = weightbase.cells(i).Value Or weightbase.cells(i).Value = "NOT DETERMINED" Then
+                If gbloc.cells(i).Value <> "ESTIMATED WEIGHT" And gbloc.cells(i).Value <> "UNIDENTIFIED" Then
+                        gloweibase.cells(i).Value = gbcompare1
+                End If
+            End If
+        End If
+    Else
+    End If
+Else
+    gwb.cells(i).Interior.ColorIndex = 37
+End If
+Next i
+gwb.cells.Select
+End Sub
